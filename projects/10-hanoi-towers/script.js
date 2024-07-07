@@ -1,4 +1,5 @@
-const towerList = document.querySelectorAll('.tower');
+const towerList = Array.from(document.querySelectorAll('.tower'));
+
 const main = document.querySelector('main');
 
 // TBD - create listener and get the number of disks, 
@@ -9,6 +10,9 @@ let numOfDisks = 4, maxWidth = 180, minus = 20, diskHeight = 20, towerBottomMarg
 const disks = [];
 /* JS objects are built by Prototypes - they're actually
 enveloped now by the syntax of classes */
+
+// This array should keep "clicks" on the towers
+const twoClicks = [];
 
 /********* Get Random Color ***********/
 const getRand0To255 = () => Math.floor(Math.random() * 256);
@@ -44,6 +48,10 @@ class Tower {
         this.disks.push(disk);
     }
 
+    hasDisks() {
+        return this.disks.length > 0;
+    }
+
 }
 
 class Disk {
@@ -72,7 +80,7 @@ class Disk {
 
 /*********************** Create Tower Objects ***************************/
 
-const towers = Array.from(towerList).map(el => {
+const towers = towerList.map(el => {
     
     // const currDate = new Date();
     // const endOfMay = new Date('2024-05-31');
@@ -82,6 +90,7 @@ const towers = Array.from(towerList).map(el => {
     //                 3. Points "this" to the current new location in the memory
     const newTower = new Tower(el);
     newTower.findMiddle();
+
     return newTower;
     
 }) 
@@ -105,3 +114,29 @@ for (let i = 0; i < numOfDisks; i++) {
     towers[0].addDisk(newDisk);
 
 }
+
+main.addEventListener('click',(e) => {
+
+    let clickedObject = null;
+
+    if (e.target.classList.contains('tower')) clickedObject = e.target
+    else if (e.target.parentElement.classList.contains('tower')) {
+        clickedObject = e.target.parentElement
+    }
+    // tbd - how you get from "click" on some disk to it's tower
+
+    if (clickedObject) {
+       
+        if (twoClicks[0] === undefined) {
+            
+            let id = towerList.indexOf(clickedObject);
+
+            if (towers[id].hasDisks()) {
+                twoClicks[0] = id;
+                clickedObject.classList.add('clicked');
+            }
+            
+        }
+    }
+
+})

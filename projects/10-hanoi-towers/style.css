@@ -45,6 +45,10 @@ main {
     margin: 10px;
 }
 
+.tower.clicked {
+    border: 1px solid green;
+}
+
 .tower-pole {
     background: darkblue;
     height: 500px;

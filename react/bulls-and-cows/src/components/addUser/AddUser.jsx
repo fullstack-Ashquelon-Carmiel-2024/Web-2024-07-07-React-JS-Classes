@@ -5,11 +5,20 @@ export default function AddUser({children, add}) {
 
   const [formData,setFormData] = useState({});
 
+  const handleChange = e => setFormData({...formData,
+                                   [e.target.name]: e.target.value});
+
   function onSubmit(e) {
 
     e.preventDefault();
 
+    add(formData);
+
+    setFormData({});
+
   }
+
+    console.log(formData)
 
     return (
       <div className="col-12 col-sm-6 col-md-5 col-lg-5 offset-lg-1 border-start border-start-1 border-primary px-5 addUser order-0 order-sm-1">
@@ -31,7 +40,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 offset-0 col-lg-8 offset-lg-1">
 
                   <input className="form-control fs-3" type="text" name="fullName" id="fullName" 
-                        required />
+                        required onChange={handleChange} value={formData.fullName}  />
 
 
                   <div className="invalid-feedback">You should enter a full name!</div>
@@ -43,7 +52,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 col-lg-8 offset-lg-1">
 
                   <input className="form-control fs-3" type="email" name="email" id="email" 
-                           required                    />
+                           required   onChange={handleChange}     value={formData.email}              />
 
                   <div className="invalid-feedback">You should enter a valid email!</div>
               </div>
@@ -54,7 +63,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 col-lg-8 offset-lg-1" >
 
                   <input className="form-control fs-3" type="text" name="nick" id="nick"
-                           required />
+                           required  onChange={handleChange}  value={formData.nick} />
                   <div className="invalid-feedback">You should supply a nickname!</div>
 
               </div>
@@ -64,7 +73,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 col-lg-8 offset-lg-1">
 
                   <input className="form-control fs-2" type="tel" name="phone" id="phone"
-                          />
+                          onChange={handleChange}  value={formData.phone} />
 
               </div>
             </div>
@@ -73,7 +82,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 col-lg-8 offset-lg-1">
 
                   <select className="form-control fs-4" name="gender" id="gender"
-                            >
+                             onChange={handleChange}  value={formData.gender}>
                     <option value="">-- Choose gender --</option>
                     <option value="f">Female</option>
                     <option value="m">Male</option>
@@ -86,7 +95,7 @@ export default function AddUser({children, add}) {
               <div className="col-12 col-lg-8 offset-lg-1">
 
                   <select className="form-control fs-4" name="role" id="role" required
-                            >
+                           onChange={handleChange}  value={formData.role} >
                     <option value="">-- Choose role --</option>
                     <option value="admin">Admin</option>
                     <option value="player">Player</option>
