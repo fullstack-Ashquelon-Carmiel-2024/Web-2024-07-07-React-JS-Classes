@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import AddUser from './components/addUser/AddUser';
 import Header from './components/header/Header';
@@ -26,6 +27,16 @@ function App() {
 
   }
 
+  const addUser = (newUser) => {
+
+    /* setUsers(users.concat({...newUser, id: Date.now()})); */
+    // Date.now() could still be the same, if addUser() runs in a loop 
+    // 
+    //setUsers(users.concat({...newUser, id: uuid()}));
+    setUsers([...users,{...newUser, id: uuid()}]);
+
+  }
+
   // MISSION:
   // 1. contexts: Create in contexts dir UserContext
   // 2. App:Bring it here and create UserContext.Provider
@@ -43,7 +54,7 @@ function App() {
           <Header title='User List' /> 
         </UserList>
 
-        <AddUser>
+        <AddUser add={addUser}>
           <Header title='Add User' /> 
         </AddUser>
 

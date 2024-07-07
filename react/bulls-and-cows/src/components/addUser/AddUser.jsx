@@ -1,6 +1,15 @@
 import './AddUser.scss';
+import {useState} from 'react';
 
-export default function AddUser({children}) {
+export default function AddUser({children, add}) {
+
+  const [formData,setFormData] = useState({});
+
+  function onSubmit(e) {
+
+    e.preventDefault();
+
+  }
 
     return (
       <div className="col-12 col-sm-6 col-md-5 col-lg-5 offset-lg-1 border-start border-start-1 border-primary px-5 addUser order-0 order-sm-1">
@@ -10,7 +19,7 @@ export default function AddUser({children}) {
           {/* noValidate - removes original HTML validation, 
               pay attention that here in React it is written noValidate
               and not novalidate as in plain HTML */}
-          <form className="fs-3"  noValidate >
+          <form className="fs-3" onSubmit={onSubmit}   >
           
             <div className="form-group row">
                 <div className="opacity-0 text-danger" >
